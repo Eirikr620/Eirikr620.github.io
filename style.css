@@ -1,0 +1,126 @@
+/* style.css */
+
+/* 기본 설정 */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #0d0d0d;
+  color: #e0e0e0;
+  overflow-x: hidden;
+}
+
+/* 헤더 */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1000;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.5em;
+  color: #00ffe7;
+}
+
+/* 햄버거 메뉴 */
+.hamburger {
+  width: 30px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 20px;
+}
+
+.hamburger span {
+  background: #00ffe7;
+  height: 3px;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* 네비게이션 메뉴 */
+.nav-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  height: 100vh;
+  background: rgba(13, 13, 13, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: right 0.5s ease;
+  flex-direction: column;
+}
+
+.nav-menu ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+.nav-menu li {
+  margin: 20px 0;
+}
+
+.nav-menu a {
+  font-size: 2em;
+  text-decoration: none;
+  color: #ffffff;
+  transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+  color: #00ffe7;
+}
+
+.nav-menu.open {
+  right: 0;
+}
+
+/* 풀스크린 섹션 */
+.screen {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  box-sizing: border-box;
+  transition: background 1s;
+}
+
+.content {
+  text-align: center;
+  max-width: 800px;
+  animation: fadeIn 1s ease forwards;
+  opacity: 0;
+}
+
+.content h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+  color: #00ffe7;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .logo {
+    font-size: 1.2em;
+  }
+  .nav-menu a {
+    font-size: 1.5em;
+  }
+}
