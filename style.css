@@ -4,7 +4,8 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #0d0d0d;
+  background: url('assets/bg.jpg') no-repeat center center fixed;
+  background-size: cover;
   color: #e0e0e0;
   overflow-x: hidden;
 }
