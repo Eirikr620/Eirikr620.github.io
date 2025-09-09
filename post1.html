@@ -12,6 +12,12 @@
             font-style: normal;
         }
 
+        :root{
+            --btn-bg: #000;
+            --btn-fg: #fff;
+            --btn-hover: #7c3aed; /* 보라색 */
+        }
+
         body {
             font-family: 'VCR OSD Mono', monospace;
             margin: 0;
@@ -65,6 +71,58 @@
             margin: 0 auto;    /* 최대 너비가 적용된 콘텐츠 블록을 가로 중앙에 정렬합니다. */
             
         }
+
+        .view-more-container {
+            text-align: center;
+        }
+
+        .btn-view {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5em;
+            min-width: 100px;
+            padding: 9px 18px;
+            font-size: .8rem;
+            background: var(--btn-bg);
+            color: var(--btn-fg);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            border: 1px solid #000;
+            border-radius: 4px;
+            transform: translate(0,0);
+            transition: background-color .25s ease, transform .15s ease, box-shadow .25s ease, color .25s ease;
+            
+        }
+
+        .btn-view::before{
+            content: "←";
+            transition: transform .2s ease;
+        }
+        .btn-view:hover {
+            background: var(--btn-hover);
+            
+            
+        }
+        .btn-view:hover::before{
+            transform: translateX(-3px);
+        }
+
+        .btn-view:active{
+            transform: translate(0,0);
+            
+        }
+        .btn-view:focus-visible{
+            outline: 3px dashed #7c3aed;
+            outline-offset: 3px;
+        }
+
+        @media (prefers-reduced-motion: reduce){
+            .btn-view{ animation:none; transition:none; }
+            .btn-view::after{ transition:none; }
+        }
+        
     </style>
 </head>
 <body>
@@ -83,7 +141,9 @@
         <p>
             오늘은 제가 첫 홈페이지를 만들었습니다. 처음에는 막막했지만, 하나씩 코드를 작성하고 기능을 추가하면서 조금씩 완성되어 가는 모습을 보니 매우 뿌듯하네요. 앞으로 이 공간에 더 많은 기술적인 이야기와 개인적인 경험들을 담아보려고 합니다. 코딩을 시작하는 다른 분들에게도 작은 도움이 되었으면 좋겠습니다.
         </p>
-        <a href="blog1.html">← 목록으로 돌아가기</a>
+        <div class="view-more-container">
+        <a href="blog1.html" class="btn-view">BACK</a>
+        </div>
     </div>
 
 <script>
