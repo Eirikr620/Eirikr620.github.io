@@ -1,74 +1,92 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>나의 포트폴리오 & 블로그</title>
-    <style>
-        @font-face {
-            font-family: 'VCR OSD Mono';
-            src: url('VCR_OSD_MONO_1.001.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>나의 포트폴리오 & 블로그</title>
+  <style>
+    @font-face {
+      font-family: 'VCR OSD Mono';
+      src: url('VCR_OSD_MONO_1.001.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0; /* 시작점: 투명하게 */
-            }
-            to {
-                opacity: 1; /* 도착점: 불투명하게 */
-            }
-        }
-    
-        body {
-            font-family: 'VCR OSD Mono', monospace;
-            margin: 0;
-            display: flex;
-            justify-content: flex-start;
-            align-items: flex-start;
-            height: 100vh;
-            background-color: #f0f0f0;
-            padding: 100px 0 0 80px
-        }
+    :root{
+      /* 타이핑 시간과 간격을 변수로 관리 */
+      --type: .3s;
+      --base-delay: 0.3s;
+      --gap: .05s; /* 항목 간 시작 간격 */
+    }
 
-        
-        .main-menu {
-            text-align: left;
-        }
-        .main-menu a {
-            display: block;
-            font-size: 1.5em;
-            text-decoration: none;
-            color: #333;
-            padding: 10px;
-            margin: 10px 0;
-            transition: color 0.3s;
+    body {
+      font-family: 'VCR OSD Mono', monospace;
+      margin: 0;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      height: 100vh;
+      background-color: #f0f0f0;
+      padding: 100px 0 0 80px;
+    }
 
-            /* 애니메이션 적용 */
-            opacity: 0; /* 애니메이션 시작 전에는 안 보이게 설정 */
-            animation: fadeIn 1.2s forwards; /* 애니메이션 이름, 지속 시간, 끝난 후 상태 유지 */
-    
-        }
-        .main-menu a:hover {
-            color: #007bff;
-        }
-        .menu-item:nth-child(1) {
-            animation-delay: 0.2s;
-        }
-        .menu-item:nth-child(2) {
-            animation-delay: 0.7s;
-        }
-        .menu-item:nth-child(3) {
-            animation-delay: 1.2s;
-        }
-    </style>
+    .main-menu { text-align: left; }
+
+    .main-menu a {
+      display: block;
+      font-size: 1.5em;
+      text-decoration: none;
+      color: #333;
+      padding: 10px 0;
+      margin: 20px 0;
+      white-space: nowrap;
+      overflow: hidden;
+
+      /* 초기부터 완전 숨김 + 딜레이 동안에도 유지 */
+      width: 0;
+      animation-fill-mode: both;
+    }
+
+    .main-menu a:focus-visible{
+      outline: 2px solid #007bff;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* 타자기 애니메이션 */
+    @keyframes typing {
+      from { width: 0; }
+      to   { width: 105%; }
+    }
+
+    /* 순차 딜레이(계산식으로 관리) */
+    .menu-item:nth-child(1){
+      animation: typing var(--type) steps(40, end) forwards;
+      animation-delay: var(--base-delay);
+    }
+    .menu-item:nth-child(2){
+      animation: typing var(--type) steps(40, end) forwards;
+      animation-delay: calc(var(--base-delay) + var(--type) + var(--gap));
+    }
+    .menu-item:nth-child(3){
+      animation: typing var(--type) steps(40, end) forwards;
+      animation-delay: calc(var(--base-delay) + (var(--type) + var(--gap)) * 2);
+    }
+
+    /* 모션 최소화 환경 배려 */
+    @media (prefers-reduced-motion: reduce){
+      .main-menu a{
+        width: auto;
+        animation: none;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="main-menu">
-        <a href="profile.html" class="menu-item">PROFILE</a>
-        <a href="blog1.html" class="menu-item">BLOG</a>
-        <a href="projects.html" class="menu-item">PROJECTS</a>
-    </div>
+  <div class="main-menu">
+    <a href="profile.html" class="menu-item">PROFILE</a>
+    <a href="blog1.html" class="menu-item">BLOG</a>
+    <a href="projects.html" class="menu-item">PROJECTS</a>
+  </div>
 </body>
 </html>
