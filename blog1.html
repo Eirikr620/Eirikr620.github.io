@@ -12,6 +12,12 @@
             font-style: normal;
         }
 
+        :root{
+            --btn-bg: #000;
+            --btn-fg: #fff;
+            --btn-hover: #7c3aed; /* 보라색 */
+        }
+        
         body {
             font-family: 'VCR OSD Mono', monospace;
             margin: 0;
@@ -71,6 +77,57 @@
             text-align: center;
         }
 
+@keyframes pop-in {
+            from { opacity: 0; transform: translateY(6px) scale(.98); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .btn-view {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5em;
+            min-width: 100px;
+            padding: 9px 18px;
+            font-size: .8rem;
+            background: var(--btn-bg);
+            color: var(--btn-fg);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            border: 1px solid #000;
+            border-radius: 4px;
+            transform: translate(0,0);
+            transition: background-color .25s ease, transform .15s ease, box-shadow .25s ease, color .25s ease;
+            
+        }
+        /* 화살표 살짝 슬라이드 (마이크로 인터랙션) */
+        .btn-view::after{
+            content: "→";
+            transition: transform .2s ease;
+        }
+        .btn-view:hover {
+            background: var(--btn-hover);
+            
+            
+        }
+        .btn-view:hover::after{
+            transform: translateX(3px);
+        }
+        .btn-view:active{
+            transform: translate(0,0);
+            
+        }
+        .btn-view:focus-visible{
+            outline: 3px dashed #7c3aed;
+            outline-offset: 3px;
+        }
+
+        @media (prefers-reduced-motion: reduce){
+            .btn-view{ animation:none; transition:none; }
+            .btn-view::after{ transition:none; }
+        }
+        
     </style>
 </head>
 <body>
@@ -91,14 +148,14 @@
             <p>DATE<p>
             <p>오늘은 제가 첫 홈페이지를 만들었습니다. 매우 뿌듯하네요!</p>
             <div class="view-more-container">
-                <a href="post1.html">View More</a>
+                <a href="post1.html" class="btn-view">View More</a>
             </div>
             <hr>
     
             <p>DATE<p>
             <p>새로운 코딩 기술을 배우는 것은 언제나 즐겁습니다.</p>
             <div class="view-more-container">
-                <a href="post1.html">View More</a>
+                <a href="post1.html" class="btn-view">View More</a>
             </div>
             <hr>
         </div>
