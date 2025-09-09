@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>두 번째 글 - 나의 블로그</title>
+    <style>
+        @font-face {
+            font-family: 'VCR OSD Mono';
+            src: url('VCR_OSD_MONO_1.001.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'VCR OSD Mono', monospace;
+            margin: 0;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            position: relative; /* 자식 요소의 absolute 위치 기준 */
+        }
+        
+        .ztmy-menu-container {
+            position: absolute; /* 드래그 가능하게 위치를 절대값으로 설정 */
+            top: 80px;
+            left: 30px;
+            width: 150px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 2px solid #000;
+            box-shadow: 5px 5px 0 #000;
+            cursor: grab; /* 마우스 커서를 변경하여 드래그 가능함을 알림 */
+            z-index: 1000; /* 다른 요소 위에 표시 */
+        }
+        
+        .menu-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #000;
+            margin-bottom: 10px;
+        }
+
+        .menu-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu-list li a {
+            display: block;
+            padding: 5px 0;
+            text-decoration: none;
+            color: #000;
+            font-size: 1em;
+            transition: background-color 0.2s;
+        }
+        
+        .menu-list li a:hover {
+            background-color: #ccc;
+        }
+        .content {
+            padding: 20px;
+            max-width: 800px;  /* 콘텐츠의 최대 너비를 800px로 제한합니다. */
+            margin: 0 auto;    /* 최대 너비가 적용된 콘텐츠 블록을 가로 중앙에 정렬합니다. */
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="ztmy-menu-container" id="draggable-menu">
+        <div class="menu-title">Menu</div>
+        <ul class="menu-list">
+            <li><a href="index.html">TOP</a></li>
+            <li><a href="profile.html">PROFILE</a></li>
+            <li><a href="blog1.html">BLOG</a></li>
+            <li><a href="projects.html">PROJECTS</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <h1>두 번째 글</h1>
+        <p>
+            새로운 코딩 기술을 배우는 것은 언제나 즐겁습니다. 최근에 React라는 자바스크립트 라이브러리를 공부하기 시작했는데, 컴포넌트 기반으로 UI를 만드는 방식이 매우 흥미롭네요. 앞으로는 더 복잡한 웹 애플리케이션을 만들어 볼 계획입니다. 코딩은 배울수록 끝이 없는 것 같아요!
+        </p>
+        <a href="blog1.html">← 목록으로 돌아가기</a>
+    </div>
+
+<script>
+        const menu = document.getElementById('draggable-menu');
+        let isDragging = false;
+        let initialX, initialY, offsetX, offsetY;
+
+        // 마우스 누르기 이벤트
+        menu.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            initialX = e.clientX;
+            initialY = e.clientY;
+            offsetX = menu.offsetLeft;
+            offsetY = menu.offsetTop;
+            menu.style.cursor = 'grabbing';
+            e.preventDefault(); // 기본 드래그 방지
+        });
+
+        // 마우스 이동 이벤트
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            
+            const dx = e.clientX - initialX;
+            const dy = e.clientY - initialY;
+            
+            menu.style.left = `${offsetX + dx}px`;
+            menu.style.top = `${offsetY + dy}px`;
+        });
+
+        // 마우스 떼기 이벤트
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            menu.style.cursor = 'grab';
+        });
+    </script>    
+</body>
+</html>
