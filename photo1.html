@@ -44,7 +44,16 @@
     .cell{ position:relative; aspect-ratio:1/1; overflow:hidden; }
     .spacer{ visibility:hidden; pointer-events:none; }
     .item{ display:block; cursor:pointer; background:#e5e7eb; }
-    .item img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .item img{ width:100%; height:100%; object-fit:cover; display:block; 
+      transition: transform .28s ease;
+      transform-origin: center center;
+      will-change: transform;
+    }
+
+    .item:hover img,
+    .item:focus-visible img{   /* 키보드 포커스도 동일 효과 */
+      transform: scale(1.08);  /* 1.05~1.12 사이로 취향 조절 */
+    }
 
     /* 라이트박스 */
     .lightbox{
@@ -103,6 +112,11 @@
      예: a(오래된)… g(최신)
   -------------------------------- */
   const photos = [
+    { src: 'images/100_1786 Copy.jpg', alt: 'a' },
+    { src: 'images/100_1792 Copy.jpg', alt: 'b' },
+    { src: 'images/100_1798 Copy.jpg', alt: 'c' },
+    { src: 'images/100_1804 Copy.jpg', alt: 'd' },
+    { src: 'images/100_1839 Copy.jpg', alt: 'e' }
     // 예시 경로들: 자신의 이미지 경로로 교체하세요.
     // { src: 'images/a.jpg', alt: 'a' },
     // { src: 'images/b.jpg', alt: 'b' },
