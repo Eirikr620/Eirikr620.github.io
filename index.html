@@ -72,7 +72,10 @@
       animation: typing var(--type) steps(40, end) forwards;
       animation-delay: calc(var(--base-delay) + (var(--type) + var(--gap)) * 2);
     }
-
+    .menu-item:nth-child(3){
+      animation: typing var(--type) steps(40, end) forwards;
+      animation-delay: calc(var(--base-delay) + (var(--type) + var(--gap)) * 3);
+    }    
     /* 모션 최소화 환경 배려 */
     @media (prefers-reduced-motion: reduce){
       .main-menu a{
@@ -87,6 +90,7 @@
     <a href="profile.html" class="menu-item">PROFILE</a>
     <a href="blog1.html" class="menu-item">BLOG</a>
     <a href="projects.html" class="menu-item">PROJECTS</a>
+    <a href="photo1.html" class="menu-item">PHOTO</a>
   </div>
 </body>
 </html>
