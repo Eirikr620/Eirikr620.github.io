@@ -13,10 +13,10 @@
     }
 
     :root{
-      /* 타이핑 시간과 간격을 변수로 관리 */
       --type: .3s;
       --base-delay: 0.3s;
-      --gap: .05s; /* 항목 간 시작 간격 */
+      --gap: .05s;          /* 항목 간 시작 간격 */
+      --hover-bg: #7c3aed;  /* 보라색 상자 색상 */
     }
 
     body {
@@ -42,15 +42,35 @@
       white-space: nowrap;
       overflow: hidden;
 
-      /* 초기부터 완전 숨김 + 딜레이 동안에도 유지 */
+      /* 타자기 초기 상태 + 딜레이 중에도 유지 */
       width: 0;
       animation-fill-mode: both;
     }
 
     .main-menu a:focus-visible{
-      outline: 2px solid #007bff;
+      outline: 2px solid #7c3aed;
       outline-offset: 2px;
       border-radius: 4px;
+    }
+
+    /* === Hover 슬라이드 인 배경 ===
+       텍스트만 감싼 .label에 배경 그라디언트를 깔고,
+       background-size를 0%→100%로 키워 "슬라이드 인"처럼 보이게 함. */
+    .menu-item .label{
+      position: relative;
+      display: inline-block;
+      padding: 0 .25em; /* 좌우 살짝 여백으로 상자 모양 강화 */
+      background-image: linear-gradient(90deg, var(--hover-bg), var(--hover-bg));
+      background-size: 0% 100%;
+      background-repeat: no-repeat;
+      transition: background-size .35s ease, color .35s ease;
+      will-change: background-size;
+      
+    }
+    .menu-item:hover .label,
+    .menu-item:focus-visible .label{
+      background-size: 100% 100%;
+      color: #fff; /* 보라색 위 가독성 향상 */
     }
 
     /* 타자기 애니메이션 */
@@ -59,7 +79,7 @@
       to   { width: 105%; }
     }
 
-    /* 순차 딜레이(계산식으로 관리) */
+    /* 순차 딜레이 */
     .menu-item:nth-child(1){
       animation: typing var(--type) steps(40, end) forwards;
       animation-delay: var(--base-delay);
@@ -72,25 +92,31 @@
       animation: typing var(--type) steps(40, end) forwards;
       animation-delay: calc(var(--base-delay) + (var(--type) + var(--gap)) * 2);
     }
-    .menu-item:nth-child(3){
+    .menu-item:nth-child(4){
       animation: typing var(--type) steps(40, end) forwards;
       animation-delay: calc(var(--base-delay) + (var(--type) + var(--gap)) * 3);
-    }    
+    }
+
     /* 모션 최소화 환경 배려 */
     @media (prefers-reduced-motion: reduce){
       .main-menu a{
         width: auto;
         animation: none;
       }
+      .menu-item .label{
+        transition: none;
+        background-size: 0 0;
+      }
     }
   </style>
 </head>
 <body>
   <div class="main-menu">
-    <a href="profile.html" class="menu-item">PROFILE</a>
-    <a href="blog1.html" class="menu-item">BLOG</a>
-    <a href="projects.html" class="menu-item">PROJECTS</a>
-    <a href="photo1.html" class="menu-item">PHOTO</a>
+    <!-- 텍스트를 .label로 감싸기 -->
+    <a href="profile.html" class="menu-item"><span class="label">PROFILE</span></a>
+    <a href="blog1.html" class="menu-item"><span class="label">BLOG</span></a>
+    <a href="projects.html" class="menu-item"><span class="label">PROJECTS</span></a>
+    <a href="photo1.html" class="menu-item"><span class="label">PHOTO</span></a>
   </div>
 </body>
 </html>
