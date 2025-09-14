@@ -3,36 +3,146 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>나의 포트폴리오 & PHOTOS</title>
+  <title>PHOTO | Jonghyeok Hong</title>
   <style>
     @font-face {
-      font-family: 'VCR OSD Mono';
-      src: url('VCR_OSD_MONO_1.001.ttf') format('truetype');
-      font-weight: normal; font-style: normal;
+      font-family: 'JF-Dot-Shinonome14';
+      src: url('JF-Dot-Shinonome14.ttf') format('truetype');
+      font-weight: normal; 
+      font-style: normal;
     }
+
     :root{
       --cols: 3;
       --gap: 0px;               /* 썸네일 사이 간격(붙임 배치면 0) */
       --overlay-bg: rgba(0,0,0,.86);
       --close-bg: rgba(0,0,0,.6);
+
+      --grid: 28px;                 /* ▶ 격자 간격: 여기만 바꾸면 간격 조절 */
+      --grid-major-step: 4;         /* 굵은 선: 몇 칸마다 한 번 */
+      --grid-line: rgba(255,255,255,.12);  /* 얇은 선 색 */
+      --grid-major: rgba(255,255,255,.22); /* 굵은 선 색 */
+      --w98-ctrl: 23px;   /* 버튼 한 변 */
+      --ico-scale: 0.9;   /* 아이콘 확대 배율 */   
     }
+
     body{
-      margin:0; font-family:'VCR OSD Mono', monospace;
-      min-height:100vh; background:#f0f0f0; position:relative;
+      margin:0; 
+      font-family:'JF-Dot-Shinonome14', monospace;
+      min-height:100vh; 
+      background:#2e2747; 
+      position:relative;
+      overflow: hidden;
+
+      /*Grid Background*/
+      background-image:
+        /* Thin line */
+        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px),
+        /* Thick line */
+        linear-gradient(to right, var(--grid-major) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-major) 1px, transparent 1px);
+      background-size:
+        var(--grid) var(--grid),
+        var(--grid) var(--grid),
+        calc(var(--grid) * var(--grid-major-step)) calc(var(--grid) * var(--grid-major-step)),
+        calc(var(--grid) * var(--grid-major-step)) calc(var(--grid) * var(--grid-major-step));
+      background-position: top left; 
     }
 
     /* 드래그 가능한 메뉴 (그대로 유지) */
-    .ztmy-menu-container{
-      position:absolute; top:80px; left:30px; width:150px; padding:10px;
-      background:#f0f0f0; border:2px solid #000; box-shadow:5px 5px 0 #000;
-      cursor:grab; z-index:1000;
+    .menu-container{
+      position: absolute; 
+      top: 0px; 
+      left: 80px; 
+      width: 170px; 
+      padding: 0px 0px 0px 0px;
+      background:#f0f0f0; 
+      border: 1.5px solid #d9c3ff; 
+      box-shadow: 2px 2px 0 #12121254;
+      cursor:grab; 
+      z-index:1000;
     }
-    .menu-title{font-size:1.2em; font-weight:bold; padding-bottom:5px; border-bottom:2px solid #000; margin-bottom:10px;}
-    .menu-list{list-style:none; margin:0; padding:0;}
-    .menu-list li a{display:block; padding:5px 0; text-decoration:none; color:#000;}
-    .menu-list li a:hover{background:#ccc;}
 
-    .content{padding:20px; max-width:800px; margin:0 auto;}
+    .win98__titlebar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 40px;
+      padding: 0 6px;
+      color: #fff;
+      background: #695de6;
+      user-select: none;
+      cursor: grab;
+    }
+
+    .win98__body {
+      margin: 0px;
+      background: #d9c3ff;
+      border: 2px solid #655fe8; /* 안쪽 음각 */
+      padding: 10px;
+      max-height: var(--body-h, 50vh);
+      overflow: auto;
+    }
+
+    .win98__controls{ display:inline-flex; gap:4px; }
+
+    .btn-98{
+      width: var(--w98-ctrl);
+      height: var(--w98-ctrl);
+      position: relative;
+      display:flex; align-items:center; justify-content:center;
+      background:#d4b6fe;
+      border:3px solid;
+      border-color:#c1acf2 #7b67c8 #8571d5 #ebd0fe;
+      cursor:pointer; overflow:visible;
+    }
+        
+    .btn-98:hover{ filter:brightness(.95); }
+
+    .btn-98:active{ border-color:#8571d5 #ebd0fe #c1acf2 #7b67c8; }
+
+    .btn-98 .ico{
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%,-50%) scale(var(--ico-scale));
+      width:100%; height:100%;
+      pointer-events:none; shape-rendering:crispEdges;
+    }    
+
+    .menu-title{
+      font-size:1.5em; 
+      font-weight:bold; 
+      padding-bottom:0px; 
+      /*border-bottom:2px solid #000; */
+      margin-bottom:0px;
+      padding: 0 6px
+    }
+
+    .menu-list{
+      list-style-type: none; 
+      margin: 0; 
+      padding: 0;
+    }
+    
+    .menu-list li a{
+      display:block; 
+      padding:5px 0; 
+      text-decoration:none; 
+      color:#000;
+      font-size: 1em;
+      transition: color 0.7s;
+    }
+
+    .menu-list li a:hover{
+      color: #9a68f6;
+    }
+
+    .content{
+      padding:20px; 
+      max-width:800px; 
+      margin: 0px auto;
+    }
+
     h1{margin:10px 0 14px;}
 
     /* === 갤러리: 3열, 셀 단위 렌더 === */
@@ -44,7 +154,7 @@
     .cell{ position:relative; aspect-ratio:1/1; overflow:hidden; }
     .spacer{ visibility:hidden; pointer-events:none; }
     .item{ display:block; cursor:pointer; background:#e5e7eb; }
-    .item img{ width:100%; height:100%; object-fit:cover; display:block; 
+    .item img{ width:100%; height:100%; object-fit:cover; display:block;
       transition: transform .28s ease;
       transform-origin: center center;
       will-change: transform;
@@ -71,24 +181,78 @@
     .lightbox__close:focus-visible{ outline:3px dashed #fff; outline-offset:2px; }
 
     @media (max-width:520px){ :root{ --cols:2; } } /* 모바일 2열(선택) */
+  
+    .content-window{
+      position: relative;                /* 문서 흐름 안에서 배치 */
+      max-width: 800px;                  /* 기존 컨텐츠 폭 유지 */
+      margin: 120px auto 40px;           /* 가운데 정렬 + 위 여백 */
+      background-color: #f0f0f0;         /* 메뉴 컨테이너 배경과 동일 */
+      border: 1.5px solid #d9c3ff;       /* 같은 연보라 테두리 */
+      box-shadow: 2px 2px 0 #12121254;   /* 같은 그림자 */
+    }
+
+    /* (선택) 컨텐츠 본문 안쪽 간격이 더 필요하면 여기서 조절 */
+    .content-window .win98__body{
+      padding: 14px; /* 메뉴 기본 10px보다 조금 넉넉하게 */
+    }
+
+    .view-more-container {
+      text-align: center;
+    }
+
+    @keyframes pop-in {
+      from { opacity: 0; transform: translateY(6px) scale(.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    } 
+  
   </style>
 </head>
+
 <body>
-  <div class="ztmy-menu-container" id="draggable-menu">
-    <div class="menu-title">Menu</div>
-    <ul class="menu-list">
-      <li><a href="index.html">TOP</a></li>
-      <li><a href="profile.html">PROFILE</a></li>
-      <li><a href="blog1.html">BLOG</a></li>
-      <li><a href="projects.html">PROJECTS</a></li>
-      <li><a href="photo1.html">PHOTO</a></li>
-    </ul>
+  <div class="menu-container" id="draggable-menu">
+    <div class="win98__titlebar" id="retroBar">
+      <div class="menu-title">Menu</div>
+
+      <div class="win98__controls">
+        <button class="btn-98" id="menuMin" title="Minimize"
+                aria-label="Minimize" aria-controls="menuBody" aria-expanded="true">
+          <svg class="ico" viewBox="0 0 10 10" aria-hidden="true">
+            <rect x="1" y="7" width="8" height="1.6" fill="#5b3d84"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <div class="win98__body" id="menuBody">
+      <ul class="menu-list">
+        <li><a href="index.html">TOP</a></li>
+        <li><a href="profile.html">PROFILE</a></li>
+        <li><a href="blog1.html">BLOG</a></li>
+        <li><a href="projects.html">PROJECTS</a></li>
+      </ul>
+    </div>
   </div>
 
-  <div class="content">
-    <h1>PHOTOS</h1>
-    <div id="gallery" class="gallery" aria-live="polite"></div>
-  </div>
+  <section class="win98" style="--body-h: 60vh">
+    <div class="content-window" id="photoWin">
+      <div class="win98__titlebar">
+        <div class="menu-title">PHOTO</div>
+
+        <div class="win98__controls">
+          <button class="btn-98" id="photoMin" title="Minimize"
+                  aria-label="Minimize" aria-controls="photoBody" aria-expanded="true">
+            <svg class="ico" viewBox="0 0 10 10" aria-hidden="true">
+              <rect x="1" y="7" width="8" height="1.6" fill="#5b3d84"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="win98__body" id="photoBody">
+        <div id="gallery" class="gallery" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
 
   <!-- 라이트박스 -->
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="원본 이미지 보기">
@@ -101,10 +265,32 @@
 <script>
   /* 드래그 가능한 메뉴 */
   const menu = document.getElementById('draggable-menu');
-  let isDragging=false, initialX, initialY, offsetX, offsetY;
-  menu.addEventListener('mousedown', e => { isDragging=true; initialX=e.clientX; initialY=e.clientY; offsetX=menu.offsetLeft; offsetY=menu.offsetTop; menu.style.cursor='grabbing'; e.preventDefault(); });
-  document.addEventListener('mousemove', e => { if(!isDragging) return; const dx=e.clientX-initialX, dy=e.clientY-initialY; menu.style.left=`${offsetX+dx}px`; menu.style.top=`${offsetY+dy}px`; });
-  document.addEventListener('mouseup', () => { isDragging=false; menu.style.cursor='grab'; });
+  let isDragging=false; 
+  let initialX, initialY, offsetX, offsetY;
+
+  menu.addEventListener('mousedown', e => { 
+    isDragging=true; 
+    initialX=e.clientX; 
+    initialY=e.clientY; 
+    offsetX=menu.offsetLeft; 
+    offsetY=menu.offsetTop; 
+    menu.style.cursor='grabbing'; 
+    e.preventDefault(); 
+  });
+
+  document.addEventListener('mousemove', e => { 
+    if(!isDragging) return; 
+    const dx=e.clientX-initialX; 
+    const dy=e.clientY-initialY; 
+    
+    menu.style.left=`${offsetX+dx}px`; 
+    menu.style.top=`${offsetY+dy}px`; 
+  });
+
+  document.addEventListener('mouseup', () => {
+    isDragging=false; 
+    menu.style.cursor='grab'; 
+  });
 
   /* -------------------------------
      사진 목록(관리자만 코드로 편집)
@@ -112,11 +298,11 @@
      예: a(오래된)… g(최신)
   -------------------------------- */
   const photos = [
-    { src: '/images/100_1786 Copy.jpg', alt: 'a' },
-    { src: '/images/100_1792 Copy.jpg', alt: 'b' },
-    { src: '/images/100_1798 Copy.jpg', alt: 'c' },
-    { src: '/images/100_1804 Copy.jpg', alt: 'd' },
-    { src: '/images/100_1839 Copy.jpg', alt: 'e' }
+    { src: '/images/100_1786 Copy.JPG', alt: 'a' },
+    { src: '/images/100_1792 Copy.JPG', alt: 'b' },
+    { src: '/images/100_1798 Copy.JPG', alt: 'c' },
+    { src: '/images/100_1804 Copy.JPG', alt: 'd' },
+    { src: '/images/100_1839 Copy.JPG', alt: 'e' }
     // 예시 경로들: 자신의 이미지 경로로 교체하세요.
     // { src: 'images/a.jpg', alt: 'a' },
     // { src: 'images/b.jpg', alt: 'b' },
@@ -178,6 +364,31 @@
   lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
   lightboxClose.addEventListener('click', closeLightbox);
   window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+  (function(){
+    const btn  = document.getElementById('photoMin');
+    const body = document.getElementById('photoBody');
+    if (!btn || !body) return;
+
+  btn.addEventListener('click', () => {
+    const collapsed = body.style.display !== 'none' ? true : false;
+    body.style.display = collapsed ? 'none' : '';
+    btn.setAttribute('aria-expanded', String(!collapsed));
+  });
+  })();
+
+  (function(){
+    const btn  = document.getElementById('menuMin');
+    const body = document.getElementById('menuBody');
+    if (!btn || !body) return;
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation(); // 드래그 시작 등과 충돌 방지
+    const willCollapse = body.style.display !== 'none';
+    body.style.display = willCollapse ? 'none' : '';
+    btn.setAttribute('aria-expanded', String(!willCollapse));
+  });
+  })();    
 
   // 초기 렌더
   render();
