@@ -32,6 +32,10 @@
       --grid-major-step: 4;         /* 굵은 선: 몇 칸마다 한 번 */
       --grid-line: rgba(255,255,255,.12);  /* 얇은 선 색 */
       --grid-major: rgba(255,255,255,.22); /* 굵은 선 색 */
+
+      --bg1: /*#8d71d6*/ #755db4 ;
+      --bg2: /*#cc72d2*/ #b362b9 ;
+
     }
 
     body {
@@ -41,7 +45,8 @@
       justify-content: flex-start;
       align-items: flex-start;
       height: 100vh;
-      background-color:#2e2747;
+      /*background-color:#2e2747;*/
+      background-color: var(--bg1);
       padding: 100px 0 0 80px;
       overflow: hidden;
 
@@ -52,12 +57,16 @@
         linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px),
         /* Thick line */
         linear-gradient(to right, var(--grid-major) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--grid-major) 1px, transparent 1px);
+        linear-gradient(to bottom, var(--grid-major) 1px, transparent 1px),
+        /* Base gradient (아래에 깔림) */
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+
       background-size:
         var(--grid) var(--grid),
         var(--grid) var(--grid),
         calc(var(--grid) * var(--grid-major-step)) calc(var(--grid) * var(--grid-major-step)),
-        calc(var(--grid) * var(--grid-major-step)) calc(var(--grid) * var(--grid-major-step));
+        calc(var(--grid) * var(--grid-major-step)) calc(var(--grid) * var(--grid-major-step)), 100% 100%; /* 그라디언트는 전체 채움 */
+
       background-position: top left;
       }
 
@@ -66,7 +75,7 @@
 
     .main-menu a {
       display: block;
-      font-size: 1.5em;
+      font-size: 2em;
       text-decoration: none;
       color: #ffffff;
       padding: 10px 0;
@@ -126,8 +135,9 @@
       max-width: 46vw;
       background: var(--w98-bg);
       /* 입체 테두리(양각 효과) */
-      border: 1.5px solid #d9c3ff;
-      box-shadow: 2px 2px 0 #12121254; 
+      border: 2px solid;
+      border-color: #d9c3ff #50485e #514862 #d9c3ff;
+      box-shadow: 4px 4px 0 #12121254; 
       z-index: 1000;
 
       opacity: 0;           /* 처음엔 숨김 → .show 때 애니 */
@@ -193,7 +203,9 @@
     .win98__body {
       margin: 0px;
       background: #d9c3ff;
-      border: 2px solid #655fe8; /* 안쪽 음각 */
+      border: 1px solid;
+      
+      border-color: #655fe8; /* 안쪽 음각 */
       padding: 10px;
       max-height: 50vh;
       overflow: auto;
@@ -215,7 +227,7 @@
   <!-- Retro Window -->
   <section class="win98 draggable" id="retroWin" aria-label="Retro Window" role="dialog">
     <div class="win98__titlebar" id="retroBar">
-      <div class="win98__title">My Retro Window</div>
+      <div class="win98__title">PHOTO_002.JPG</div>
       <div class="win98__controls">
 
         <!-- Minimize -->
@@ -251,7 +263,6 @@
         </figcaption>
       </figure>
       <p style="font-family:JF-Dot-Shinonome14, system-ui; font-size:13px; color:#111; line-height:1.4">
-        Hello!
       </p>
     </div>
   </section>
