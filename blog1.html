@@ -18,7 +18,10 @@
             --grid-line: rgba(255,255,255,.12);  /* 얇은 선 색 */
             --grid-major: rgba(255,255,255,.22); /* 굵은 선 색 */
             --w98-ctrl: 23px;   /* 버튼 한 변 */
-            --ico-scale: 0.9;   /* 아이콘 확대 배율 */            
+            --ico-scale: 0.9;   /* 아이콘 확대 배율 */    
+            
+            --bg1: /*#8d71d6*/ #755db4;
+            --bg2: /*#cc72d2*/ #b362b9;
         }
 
         body {
@@ -36,12 +39,15 @@
               linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px),
               /* Thick line */
               linear-gradient(to right, var(--grid-major) 1px, transparent 1px),
-              linear-gradient(to bottom, var(--grid-major) 1px, transparent 1px);
+              linear-gradient(to bottom, var(--grid-major) 1px, transparent 1px),
+
+              linear-gradient(180deg, var(--bg1), var(--bg2));
+
             background-size:
               var(--grid) var(--grid),
               var(--grid) var(--grid),
               calc(var(--grid) * var(--grid-major-step)) calc(var(--grid) * var(--grid-major-step)),
-              calc(var(--grid) * var(--grid-major-step)) calc(var(--grid) * var(--grid-major-step));
+              calc(var(--grid) * var(--grid-major-step)) calc(var(--grid) * var(--grid-major-step)), 100% 100%;
             background-position: top left;        
         }
         
@@ -52,8 +58,10 @@
             width: 170px;
             padding: 0px 0px 0px 0px;
             background-color: #f0f0f0;
-            border: 1.5px solid #d9c3ff;
-            box-shadow: 2px 2px 0 #12121254; 
+            /*border: 1.5px solid #d9c3ff;*/
+            border: 2px solid;
+            border-color: #d9c3ff #50485e #514862 #d9c3ff;            
+            box-shadow: 4px 4px 0 #12121254; 
             cursor: grab; /* 마우스 커서를 변경하여 드래그 가능함을 알림 */
 
             z-index: 1000; /* 다른 요소 위에 표시 */
@@ -82,6 +90,7 @@
 
         .win98__controls{ display:inline-flex; gap:4px; }
 
+        
         .btn-98{
             width: var(--w98-ctrl);
             height: var(--w98-ctrl);
@@ -133,10 +142,11 @@
         }
         
         .content {
-            padding: 20px;
+            padding: 0px;
             max-width: 800px;  /* 콘텐츠의 최대 너비를 800px로 제한합니다. */
             margin: 0 auto;    /* 최대 너비가 적용된 콘텐츠 블록을 가로 중앙에 정렬합니다. */
-            color: #f0f0f0;
+            color: #000;
+            font-size: 1.1em;
         }
 
         /* === Blog 컨텐츠용 Win98 패널 === */
@@ -145,8 +155,10 @@
             max-width: 800px;                  /* 기존 컨텐츠 폭 유지 */
             margin: 120px auto 40px;           /* 가운데 정렬 + 위 여백 */
             background-color: #f0f0f0;         /* 메뉴 컨테이너 배경과 동일 */
-            border: 1.5px solid #d9c3ff;       /* 같은 연보라 테두리 */
-            box-shadow: 2px 2px 0 #12121254;   /* 같은 그림자 */
+            /*border: 1.5px solid #d9c3ff;/*       /* 같은 연보라 테두리 */
+            border: 2px solid;
+            border-color: #d9c3ff #50485e #514862 #d9c3ff;            
+            box-shadow: 4px 4px 0 #12121254;   /* 같은 그림자 */
         }
 
         /* (선택) 컨텐츠 본문 안쪽 간격이 더 필요하면 여기서 조절 */
@@ -169,16 +181,18 @@
             align-items: center;
             justify-content: center;
             gap: .5em;
-            min-width: 100px;
+            min-width: 30px;
             padding: 9px 18px;
             font-size: .8rem;
-            background: #000;
-            color: #fff;
+            background: #d9c3ff;
+            color: #000;
             text-decoration: none;
             text-transform: uppercase;
             letter-spacing: .06em;
-            border: 1px solid #000;
-            border-radius: 4px;
+            border: 4px solid;
+            /*border-color: #c1acf2 #7b67c8 #8571d5 #ebd0fe;*/
+            border-color: #eee9fb #7b67c8 #8571d5 #ecdaf9;
+            /*border-radius: 4px;*/
             transform: translate(0,0);
             transition: background-color .25s ease, transform .15s ease, box-shadow .25s ease, color .25s ease;
             
@@ -190,8 +204,8 @@
             transition: transform .2s ease;
         }
         .btn-view:hover {
-            background: #7c3aed;
-            
+            /*background: #7c3aed;*/
+            filter:brightness(.95);
             
         }
         .btn-view:hover::after{
@@ -199,7 +213,7 @@
         }
         .btn-view:active{
             transform: translate(0,0);
-            
+            border-color:#8571d5 #ebd0fe #c1acf2 #7b67c8;
         }
         .btn-view:focus-visible{
             outline: 3px dashed #7c3aed;
@@ -255,8 +269,9 @@
         </div>
 
         <div class="win98__body" id="blogBody">
+            <div class="content">
             <p>09.09.2025</p>
-            <p>Updating</p>
+            <p>UPDATED</p>
             <div class="view-more-container">
                 <a href="post2.html" class="btn-view">View More</a>
             </div>
@@ -267,7 +282,8 @@
             <div class="view-more-container">
                 <a href="post1.html" class="btn-view">View More</a>
             </div>
-            <hr>       
+            <hr> 
+            </div>      
         </div>
     </div>
     </section>

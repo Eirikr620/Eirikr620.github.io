@@ -18,7 +18,10 @@
             --grid-line: rgba(255,255,255,.12);  /* 얇은 선 색 */
             --grid-major: rgba(255,255,255,.22); /* 굵은 선 색 */
             --w98-ctrl: 23px;   /* 버튼 한 변 */
-            --ico-scale: 0.9;   /* 아이콘 확대 배율 */            
+            --ico-scale: 0.9;   /* 아이콘 확대 배율 */  
+            
+            --bg1: /*#8d71d6*/ #755db4;
+            --bg2: /*#cc72d2*/ #b362b9;
         }
 
         body {
@@ -36,12 +39,15 @@
               linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px),
               /* Thick line */
               linear-gradient(to right, var(--grid-major) 1px, transparent 1px),
-              linear-gradient(to bottom, var(--grid-major) 1px, transparent 1px);
+              linear-gradient(to bottom, var(--grid-major) 1px, transparent 1px),
+              
+              linear-gradient(180deg, var(--bg1), var(--bg2));
+
             background-size:
               var(--grid) var(--grid),
               var(--grid) var(--grid),
               calc(var(--grid) * var(--grid-major-step)) calc(var(--grid) * var(--grid-major-step)),
-              calc(var(--grid) * var(--grid-major-step)) calc(var(--grid) * var(--grid-major-step));
+              calc(var(--grid) * var(--grid-major-step)) calc(var(--grid) * var(--grid-major-step)), 100% 100%;
             background-position: top left; 
         }
 
@@ -52,8 +58,10 @@
             width: 170px;
             padding: 0px 0px 0px 0px;
             background-color: #f0f0f0;
-            border: 1.5px solid #d9c3ff;
-            box-shadow: 2px 2px 0 #12121254; 
+            /*border: 1.5px solid #d9c3ff;*/
+            border: 2px solid;
+            border-color: #d9c3ff #50485e #514862 #d9c3ff;             
+            box-shadow: 4px 4px 0 #12121254; 
             cursor: grab; /* 마우스 커서를 변경하여 드래그 가능함을 알림 */
             z-index: 1000; /* 다른 요소 위에 표시 */
         }
@@ -136,6 +144,7 @@
             max-width: 800px;  /* 콘텐츠의 최대 너비를 800px로 제한합니다. */
             margin: 0 auto;    /* 최대 너비가 적용된 콘텐츠 블록을 가로 중앙에 정렬합니다. */
             color: #000;
+            font-size: 1.5em;
         }
     
         /* === Blog 컨텐츠용 Win98 패널 === */
@@ -144,8 +153,10 @@
             max-width: 800px;                  /* 기존 컨텐츠 폭 유지 */
             margin: 120px auto 40px;           /* 가운데 정렬 + 위 여백 */
             background-color: #f0f0f0;         /* 메뉴 컨테이너 배경과 동일 */
-            border: 1.5px solid #d9c3ff;       /* 같은 연보라 테두리 */
-            box-shadow: 2px 2px 0 #12121254;   /* 같은 그림자 */
+            /*border: 1.5px solid #d9c3ff;*/       /* 같은 연보라 테두리 */
+            border: 2px solid;
+            border-color: #d9c3ff #50485e #514862 #d9c3ff;             
+            box-shadow: 4px 4px 0 #12121254;   /* 같은 그림자 */
         }
 
         /* (선택) 컨텐츠 본문 안쪽 간격이 더 필요하면 여기서 조절 */
@@ -253,7 +264,7 @@
 
         <div class="win98__body" id="profileBody">
             <div class="content">
-                <p>제가 진행한 멋진 프로젝트들을 소개하는 공간입니다. 나중에 여기에 더 많은 내용을 추가해 봅시다!</p>
+                <p>Not yet</p>
             </div>
         </div>
 
