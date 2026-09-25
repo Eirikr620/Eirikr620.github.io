@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BLOG | Jonghyeok Hong</title>
+  <link rel="stylesheet" href="blog1.css" />
+  <script src="blog1.posts.js" defer></script>
+  <script src="blog1.js" defer></script>
+</head>
+<body>
+  <!--
+    수정 안내
+    • 포스트 추가·삭제, 제목·날짜·링크 수정: blog1.posts.js
+    • 실제 글 본문: 목록의 href에 지정한 파일 (예: post1.html)
+    • 창 너비·여백·글자 크기·색상: blog1.css
+    • 목록 생성·최소화·메뉴 드래그: blog1.js
+    • 모든 포스트의 공통 표시 구조: 아래 post-template
+  -->
+
+  <!-- 메뉴 링크: 항목을 추가하려면 li 한 줄을 복사하세요. -->
+  <nav class="menu-container" id="draggable-menu" aria-label="메인 메뉴">
+    <div class="win98__titlebar" id="retroBar">
+      <div class="menu-title">Menu</div>
+      <div class="win98__controls">
+        <button type="button" class="btn-98" id="menuMin" title="Minimize"
+                aria-label="Minimize" aria-controls="menuBody" aria-expanded="true" data-minimize>
+          <svg class="ico" viewBox="0 0 10 10" aria-hidden="true">
+            <rect x="1" y="7" width="8" height="1.6" fill="#5b3d84" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="win98__body" id="menuBody">
+      <ul class="menu-list">
+        <li><a href="../index.html">TOP</a></li>
+        <li><a href="../profile/profile.html">PROFILE</a></li>
+        <li><a href="blog1.html" aria-current="page">BLOG</a></li>
+        <li><a href="../project/projects.html">PROJECTS</a></li>
+        <li><a href="../photo/photo1.html">PHOTO</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- 블로그 창: 포스트는 blog1.posts.js의 목록으로 자동 생성됩니다. -->
+  <main aria-label="블로그">
+    <div class="content-window" id="blogWin">
+      <div class="win98__titlebar">
+        <div class="menu-title">BLOG</div>
+        <div class="win98__controls">
+          <button type="button" class="btn-98" id="blogMin" title="Minimize"
+                  aria-label="Minimize" aria-controls="blogBody" aria-expanded="true" data-minimize>
+            <svg class="ico" viewBox="0 0 10 10" aria-hidden="true">
+              <rect x="1" y="7" width="8" height="1.6" fill="#5b3d84" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="win98__body" id="blogBody">
+        <div class="content" id="post-list"></div>
+        <noscript>포스트 목록을 보려면 JavaScript를 활성화해 주세요.</noscript>
+      </div>
+    </div>
+  </main>
+
+  <!-- 공통 포스트 구조: 날짜·제목·버튼 순서와 버튼 문구를 바꿀 수 있습니다. -->
+  <template id="post-template">
+    <article class="post">
+      <p class="post-date"><time></time></p>
+      <h2 class="post-title"></h2>
+      <div class="view-more-container">
+        <a class="btn-view" data-post-link>View More</a>
+      </div>
+      <hr />
+    </article>
+  </template>
+</body>
+</html>

@@ -1,0 +1,200 @@
+/* 1. 자주 수정하는 설정 */
+:root {
+  /* 프로필 본문 */
+  --profile-width: 800px;       /* 창 최대 너비 */
+  --profile-top: 120px;        /* 창 위쪽 여백 */
+  --profile-body-height: 60vh; /* 본문 최대 높이: 넘치는 내용은 스크롤 */
+  --profile-padding: 14px;     /* 본문 안쪽 여백 */
+  --profile-font-size: 1.3em;  /* 본문 글자 크기 */
+  --profile-align: center;     /* 본문 정렬: left / center / right */
+
+  /* 메뉴의 초기 위치와 너비 */
+  --menu-top: 0px;
+  --menu-left: 80px;
+  --menu-width: 170px;
+
+  /* 배경과 창 색상 */
+  --bg1: #755db4;
+  --bg2: #b362b9;
+  --titlebar-bg: #695de6;
+  --window-body-bg: #d9c3ff;
+  --grid: 28px;
+  --grid-major-step: 4;
+  --grid-line: rgba(255, 255, 255, 0.08);
+  --grid-major: rgba(255, 255, 255, 0.18);
+
+  /* 창 버튼 */
+  --w98-ctrl: 23px;
+  --ico-scale: 0.9;
+}
+
+/* 2. 글꼴과 페이지 배경 */
+@font-face {
+  font-family: 'JF-Dot-Shinonome14';
+  src: url('../JF-Dot-Shinonome14.ttf') format('truetype'); 
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'JF-Dot-Shinonome14', monospace;
+  margin: 0;
+  min-height: 100vh;
+  background-color: #2e2747;
+  position: relative;
+  overflow: hidden;
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(180deg, var(--bg1), var(--bg2));
+  background-size:
+    var(--grid) var(--grid),
+    var(--grid) var(--grid),
+    calc(var(--grid) * var(--grid-major-step)) calc(var(--grid) * var(--grid-major-step)),
+    calc(var(--grid) * var(--grid-major-step)) calc(var(--grid) * var(--grid-major-step)),
+    100% 100%;
+  background-position: top left;
+}
+
+/* 3. 프로필과 메뉴에서 공유하는 창 디자인 */
+.content-window,
+.menu-container {
+  background-color: #f0f0f0;
+  border: 2px solid;
+  border-color: #d9c3ff #50485e #514862 #d9c3ff;
+  box-shadow: 4px 4px 0 #12121290;
+}
+
+.win98__titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  padding: 0 6px;
+  color: #fff;
+  background: var(--titlebar-bg);
+  user-select: none;
+}
+
+.window-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 0;
+  padding: 0 6px;
+}
+
+.win98__body {
+  margin: 0;
+  background: var(--window-body-bg);
+  border: 2px solid #655fe8;
+  padding: 10px;
+  max-height: 50vh;
+  overflow: auto;
+}
+
+.win98__controls {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.btn-98 {
+  width: var(--w98-ctrl);
+  height: var(--w98-ctrl);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #d4b6fe;
+  border: 3px solid;
+  border-color: #c1acf2 #7b67c8 #8571d5 #ebd0fe;
+  cursor: pointer;
+  overflow: visible;
+}
+
+.btn-98:hover {
+  filter: brightness(0.95);
+}
+
+.btn-98:active {
+  border-color: #8571d5 #ebd0fe #c1acf2 #7b67c8;
+}
+
+.btn-98 .ico {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(var(--ico-scale));
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  shape-rendering: crispEdges;
+}
+
+/* 4. 프로필 창과 콘텐츠: 내용을 추가해도 창 안에서 스크롤됩니다. */
+.content-window {
+  position: relative;
+  max-width: var(--profile-width);
+  margin: var(--profile-top) auto 40px;
+}
+
+.content-window .win98__body {
+  padding: var(--profile-padding);
+  max-height: var(--profile-body-height);
+}
+
+.profile-content {
+  text-align: var(--profile-align);
+  font-size: var(--profile-font-size);
+  overflow-wrap: anywhere;
+}
+
+.profile-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 5. 메뉴 */
+.menu-container {
+  position: absolute;
+  top: var(--menu-top);
+  left: var(--menu-left);
+  width: var(--menu-width);
+  z-index: 1000;
+}
+
+.menu-container .win98__titlebar {
+  cursor: grab;
+}
+
+.menu-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-list a {
+  display: block;
+  padding: 5px 0;
+  text-decoration: none;
+  color: #000;
+  font-size: 1em;
+  transition: color 0.7s;
+}
+
+.menu-list a:hover {
+  color: #9a68f6;
+}
+
+body.is-dragging,
+body.is-dragging .menu-container .win98__titlebar {
+  cursor: grabbing;
+  user-select: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-list a {
+    transition: none;
+  }
+}

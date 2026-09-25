@@ -1,0 +1,330 @@
+/* 1. 글꼴 */
+@font-face {
+  font-family: 'JF-Dot-Shinonome14';
+  src: url('JF-Dot-Shinonome14.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 2. 디자인 설정: 색상, 격자, 애니메이션 속도 */
+:root {
+  /* 타이틀·메뉴 배치: 아래 값만 바꾸면 위치와 간격을 조절할 수 있습니다. */
+  --page-top: 60px;       /* 화면 위쪽 여백 */
+  --page-left: 80px;       /* 화면 왼쪽 여백 */
+  --title-size: 60px;      /* 타이틀 글자 크기 */
+  --subtitle-size: 40px;
+  --title-menu-gap: 60px;  /* 타이틀 아래와 메뉴 영역 사이 간격 */
+
+  --type: 0.3s;
+  --base-delay: 0.3s;
+  --gap: 0.05s;
+  --hover-bg: #7c3aed;
+
+  /* Win98 테마 컬러 */
+  --w98-bg: #c0c0c0;
+  --w98-blue-1: #695de6;
+  --w98-ctrl: 23px;
+  --ico-scale: 0.7;
+
+  --grid: 28px;                 /* ▶ 격자 간격: 여기만 바꾸면 간격 조절 */
+  --grid-major-step: 4;         /* 굵은 선: 몇 칸마다 한 번 */
+  --grid-line: rgba(255, 255, 255,.08);  /* 얇은 선 색 */
+  --grid-major: rgba(255,255,255,.18); /* 굵은 선 색 */
+
+  --bg1: #755db4;
+  --bg2: #b362b9;
+}
+
+body {
+  font-family: 'JF-Dot-Shinonome14', monospace;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 100vh;
+  background-color: var(--bg1);
+  padding: var(--page-top) 0 0 var(--page-left);
+  overflow: hidden;
+
+  /* 격자 배경 */
+  background-image:
+    /* 얇은 격자선 */
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px),
+    /* 굵은 격자선 */
+    linear-gradient(to right, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-major) 1px, transparent 1px),
+    /* 바탕 그라디언트 */
+    linear-gradient(180deg, var(--bg1), var(--bg2));
+
+  background-size:
+    var(--grid) var(--grid),
+    var(--grid) var(--grid),
+    calc(var(--grid) * var(--grid-major-step)) calc(var(--grid) * var(--grid-major-step)),
+    calc(var(--grid) * var(--grid-major-step)) calc(var(--grid) * var(--grid-major-step)), 100% 100%; /* 그라디언트는 전체 채움 */
+
+  background-position: top left;
+}
+
+/* 3. 페이지 타이틀과 메인 메뉴 */
+.page-header {
+  margin-bottom: var(--title-menu-gap);
+  padding-left: 8px; /* 메뉴 글자 시작 위치에 맞춤 */
+}
+
+.page-title {
+  margin: 0;
+  color: #fff;
+  font-size: var(--title-size);
+  font-weight: normal;
+  line-height: 1.2;
+}
+
+.page-subtitle {
+  margin: 0;
+  color: #fff;
+  font-size: var(--subtitle-size);
+  font-weight: normal;
+  line-height: 1.2;
+}
+
+.main-menu {
+  text-align: left;
+}
+
+.main-menu a {
+  display: block;
+  font-size: 2em;
+  text-decoration: none;
+  color: #ffffff;
+  padding: 10px 0;
+  margin: 20px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation-fill-mode: both;
+}
+
+.main-menu a:focus-visible {
+  outline: 2px solid var(--hover-bg);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.menu-item .label {
+  position: relative;
+  display: inline-block;
+  padding: 0 .25em;
+  background-image: linear-gradient(90deg, var(--hover-bg), var(--hover-bg));
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  transition: background-size .35s ease, color .35s ease;
+  will-change: background-size;
+}
+
+.menu-item:hover .label,
+.menu-item:focus-visible .label {
+  background-size: 100% 100%;
+  color: #fff;
+}
+
+/* 메뉴 순서(--menu-order)에 따라 등장 시간을 계산합니다. */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 105%;
+  }
+}
+
+.menu-item {
+  animation: typing var(--type) steps(40, end) forwards;
+  animation-delay: calc(var(--base-delay) + (var(--type) + var(--gap)) * var(--menu-order, 0));
+}
+
+/* 4. 공통 레트로 창 */
+@keyframes pop-in-w98 {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.win98 {
+  position: fixed;
+  right: var(--right, 24px);
+  top: var(--top, 110px);
+  width: var(--w, 360px);         /* 작은 창모드 */
+  max-width: 46vw;
+  background: var(--w98-bg);
+  /* 입체 테두리(양각 효과) */
+  border: 2px solid;
+  border-color: #d9c3ff #50485e #514862 #d9c3ff;
+  box-shadow: 4px 4px 0 #12121290;
+  z-index: 1000;
+
+  opacity: 0;           /* 처음엔 숨김 → .show 때 애니 */
+  transform: translateY(12px) scale(.98);
+}
+
+.win98.show {
+  animation: pop-in-w98 1s cubic-bezier(.2,.8,.25,1) both;
+  animation-delay: var(--delay, 0s);
+}
+
+.win98__titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  padding: 0 6px;
+  color: #fff;
+  background: var(--w98-blue-1);
+  user-select: none;
+  cursor: default;
+}
+
+.win98__title {
+  font-family: 'JF-Dot-Shinonome14', "Tahoma", "MS Sans Serif", system-ui, sans-serif;
+  font-size: 18px;
+  letter-spacing: .2px;
+}
+
+.win98__controls {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.btn-98 {
+  width: var(--w98-ctrl);
+  height: var(--w98-ctrl);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #d4b6fe;
+  border: 3px solid;
+  border-color: #c1acf2 #7b67c8 #8571d5 #ebd0fe;
+  overflow: visible;
+  cursor: pointer;
+}
+
+/* 아이콘 크기 */
+.btn-98 .ico {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(var(--ico-scale));
+  width: 100%;
+  height: 100%;          /* 기준은 버튼 크기 */
+  overflow: visible;
+  pointer-events: none;                /* 클릭은 버튼이 받도록 */
+  shape-rendering: crispEdges;
+}
+
+.btn-98:hover {
+  filter: brightness(0.95);
+}
+.btn-98:active {
+  /* 눌린 듯한 음각 효과 */
+  border-color: #8571d5 #ebd0fe #c1acf2 #7b67c8;
+}
+
+.win98__body {
+  margin: 0;
+  background: #d9c3ff;
+  border: 1px solid;
+  border-color: #655fe8; /* 안쪽 음각 */
+  padding: 10px;
+  max-height: 50vh;
+  overflow: auto;
+}
+
+/* 드래그 가능한 타이틀바 */
+.win98.draggable .win98__titlebar {
+  cursor: move;
+}
+
+/* 5. 창 안의 콘텐츠 */
+.window-photo {
+  margin: 0 0 10px;
+}
+
+.window-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.window-photo .window-image {
+  width: 100%;
+}
+
+.window-caption,
+.window-description,
+.welcome-message,
+.window-links {
+  font-family: 'JF-Dot-Shinonome14', system-ui;
+}
+
+.window-caption {
+  font-size: 20px;
+  color: #333;
+  margin-top: 6px;
+}
+
+.window-description {
+  font-size: 13px;
+  color: #111;
+  line-height: 1.4;
+}
+
+.welcome-message {
+  font-size: 20px;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.window-links {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* 6. 창 상태 및 접근성 */
+.win98.is-maximized {
+  left: 5vw;
+  top: 6vh;
+  right: auto;
+  width: min(56vw, 1000px);
+  max-width: 76vw;
+}
+
+body.is-dragging {
+  user-select: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .main-menu a {
+    width: auto;
+    animation: none;
+  }
+
+  .menu-item .label {
+    transition: none;
+    background-size: 0 0;
+  }
+
+  .win98.show {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
