@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>POST | Jonghyeok Hong</title>
+  <link rel="stylesheet" href="post.css" />
+  <script src="post.js" defer></script>
+</head>
+<body>
+  <!--
+    글 작성 안내
+    1. 제목: 아래 h1의 텍스트를 수정하세요. 브라우저 탭 제목에도 자동 반영됩니다.
+    2. 본문: post-text 안에 긴 텍스트를 붙여 넣으세요. 줄바꿈과 빈 줄이 유지됩니다.
+       일반 HTML이므로 문자 < 는 &lt; 로, & 는 &amp; 로 입력하세요.
+    3. 새 글: post-template.html을 같은 폴더에 post3.html 등의 이름으로 복사하세요.
+    4. 블로그 목록: blog1.posts.js에 제목·날짜·파일 경로를 별도로 등록하세요.
+    공통 디자인·행간·글자 크기: post.css / 공통 동작: post.js
+    자세한 예시: POST-GUIDE.md
+  -->
+
+  <main>
+    <section class="content-window" id="postWin" aria-labelledby="post-title">
+      <div class="win98__titlebar">
+        <!-- ===== 제목 수정 ===== -->
+        <h1 class="post-title" id="post-title">OPEN</h1>
+
+        <div class="win98__controls">
+          <button type="button" class="btn-98" id="postMin" title="Minimize"
+                  aria-label="Minimize" aria-controls="postBody" aria-expanded="true" data-minimize>
+            <svg class="ico" viewBox="0 0 10 10" aria-hidden="true">
+              <rect x="1" y="7" width="8" height="1.6" fill="#5b3d84" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="win98__body" id="postBody" tabindex="0" role="region" aria-label="글 본문">
+        <article class="post-content" aria-labelledby="post-title">
+          <!-- ===== 본문 시작: 아래 OPEN을 원하는 글로 바꾸세요. ===== -->
+          <div class="post-text">
+OPEN
+          </div>
+          <!-- ===== 본문 끝 ===== -->
+        </article>
+
+        <footer class="view-more-container">
+          <a href="blog1.html" class="btn-view">BACK</a>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <!-- 공통 메뉴: 글 작성 시에는 아래를 수정할 필요가 없습니다. -->
+  <nav class="menu-container" id="draggable-menu" aria-label="메인 메뉴">
+    <div class="win98__titlebar" id="retroBar">
+      <div class="menu-title">Menu</div>
+      <div class="win98__controls">
+        <button type="button" class="btn-98" id="menuMin" title="Minimize"
+                aria-label="Minimize" aria-controls="menuBody" aria-expanded="true" data-minimize>
+          <svg class="ico" viewBox="0 0 10 10" aria-hidden="true">
+            <rect x="1" y="7" width="8" height="1.6" fill="#5b3d84" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="win98__body" id="menuBody">
+      <ul class="menu-list">
+        <li><a href="index.html">TOP</a></li>
+        <li><a href="profile.html">PROFILE</a></li>
+        <li><a href="blog1.html">BLOG</a></li>
+        <li><a href="projects.html">PROJECTS</a></li>
+        <li><a href="photo1.html">PHOTO</a></li>
+      </ul>
+    </div>
+  </nav>
+</body>
+</html>
