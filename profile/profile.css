@@ -31,7 +31,7 @@
 /* 2. 글꼴과 페이지 배경 */
 @font-face {
   font-family: 'JF-Dot-Shinonome14';
-  src: url('JF-Dot-Shinonome14.ttf') format('truetype');
+  src: url('../JF-Dot-Shinonome14.ttf') format('truetype'); 
   font-weight: normal;
   font-style: normal;
 }

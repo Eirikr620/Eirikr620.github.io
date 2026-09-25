@@ -1,7 +1,7 @@
 /* post1.html과 새 포스트가 공유하는 디자인. 제목·본문은 각 HTML에서 수정하세요. */
 @font-face {
   font-family: 'JF-Dot-Shinonome14';
-  src: url('JF-Dot-Shinonome14.ttf') format('truetype');
+  src: url('../JF-Dot-Shinonome14.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }

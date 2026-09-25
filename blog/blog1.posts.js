@@ -15,11 +15,11 @@ const BLOG_POSTS = [
   {
     title: 'UPDATED',
     date: '2025-09-09',
-    href: 'post2.html',
+    href: '../post/post2.html',
   },
   {
     title: 'Open',
     date: '2025-09-08',
-    href: 'post1.html',
+    href: '../post/post1.html',
   },
 ];

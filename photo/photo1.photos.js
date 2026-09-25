@@ -10,9 +10,9 @@
 //       모든 줄을 삭제하고 []만 남겨도 됩니다. 원본 파일은 자동 삭제되지 않습니다.
 
 const PHOTO_LIST = [
-  { src: 'images/100_1786 Copy.JPG', alt: 'a' },
-  { src: 'images/100_1792 Copy.JPG', alt: 'b' },
-  { src: 'images/100_1798 Copy.JPG', alt: 'c' },
-  { src: 'images/100_1804 Copy.JPG', alt: 'd' },
-  { src: 'images/100_1839 Copy.JPG', alt: 'e' },
+  { src: '../images/100_1786 Copy.JPG', alt: 'a' },
+  { src: '../images/100_1792 Copy.JPG', alt: 'b' },
+  { src: '../images/100_1798 Copy.JPG', alt: 'c' },
+  { src: '../images/100_1804 Copy.JPG', alt: 'd' },
+  { src: '../images/100_1839 Copy.JPG', alt: 'e' },
 ];

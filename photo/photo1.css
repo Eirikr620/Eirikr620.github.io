@@ -1,16 +1,19 @@
-/* 디자인 설정: 포스트 제목·날짜·링크는 blog1.posts.js에서 수정하세요. */
+/* 갤러리 디자인: 사진 목록은 photo1.photos.js에서 수정하세요. */
 @font-face {
   font-family: 'JF-Dot-Shinonome14';
-  src: url('JF-Dot-Shinonome14.ttf') format('truetype');
+  src: url('../JF-Dot-Shinonome14.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 :root {
-  --blog-width: 800px; /* 창 최대 너비 */
-  --blog-top: 120px; /* 창 위쪽 여백 */
-  --blog-body-height: 60vh; /* 본문 최대 높이 */
-  --post-font-size: 1.1em; /* 목록 글자 크기 */
+  --gallery-width: 800px; /* 갤러리 최대 너비 */
+  --gallery-top: 120px; /* 갤러리 위쪽 여백 */
+  --body-h: 60vh; /* 본문 최대 높이 */
+  --cols: 3; /* 기본 열 수 */
+  --gap: 0px; /* 사진 사이 간격 */
+  --overlay-bg: rgba(0,0,0,.86);
+  --close-bg: rgba(0,0,0,.6);
   --grid: 28px;
   --grid-major-step: 4;
   --grid-line: rgba(255, 255, 255,.08);
@@ -22,10 +25,10 @@
 }
 
 body {
-  font-family: 'JF-Dot-Shinonome14', monospace;
   margin: 0;
+  font-family: 'JF-Dot-Shinonome14', monospace;
   min-height: 100vh;
-  background-color: #2e2747;
+  background: #2e2747;
   position: relative;
   overflow: hidden;
   background-image:
@@ -50,14 +53,14 @@ body {
   left: 80px;
   width: 170px;
   padding: 0;
-  background-color: #f0f0f0;
+  background: #f0f0f0;
   border: 2px solid;
   border-color: #d9c3ff #50485e #514862 #d9c3ff;
   box-shadow: 4px 4px 0 #12121290;
+  cursor: default;
   z-index: 1000;
 }
 
-/* 공통 창 디자인 */
 .win98__titlebar {
   display: flex;
   align-items: center;
@@ -67,6 +70,7 @@ body {
   color: #fff;
   background: #695de6;
   user-select: none;
+  cursor: grab;
 }
 
 .win98__body {
@@ -126,8 +130,8 @@ body {
 
 .menu-list {
   list-style-type: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 .menu-list li a {
@@ -143,19 +147,108 @@ body {
   color: #9a68f6;
 }
 
-.content {
-  padding: 0px;
-  max-width: var(--blog-width);
-  margin: 0 auto;
-  color: #000;
-  font-size: var(--post-font-size);
+/* 사진 썸네일 */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  gap: var(--gap);
 }
 
-/* 블로그 창 */
+.cell {
+  position: relative;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+}
+
+.spacer {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.item {
+  display: block;
+  cursor: pointer;
+  background: #e5e7eb;
+}
+
+.item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .28s ease;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.item:hover img, .item:focus-visible img {
+  transform: scale(1.08);
+}
+
+/* 사진 확대 보기 */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay-bg);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 2000;
+}
+
+.lightbox.open {
+  display: flex;
+}
+
+.lightbox__inner {
+  position: relative;
+  max-width: 95vw;
+  max-height: 95vh;
+}
+
+.lightbox__img {
+  max-width: 95vw;
+  max-height: 95vh;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.5);
+  display: block;
+}
+
+.lightbox__close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  background: var(--close-bg);
+  color: #fff;
+  border: 2px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.lightbox__close:focus-visible {
+  outline: 3px dashed #fff;
+  outline-offset: 2px;
+}
+
+@media (max-width:520px) {
+  :root {
+    --cols: 2;
+  }
+
+}
+
+/* 갤러리 창 */
 .content-window {
   position: relative;
-  max-width: var(--blog-width);
-  margin: var(--blog-top) auto 40px;
+  max-width: var(--gallery-width);
+  margin: var(--gallery-top) auto 40px;
   background-color: #f0f0f0;
   border: 2px solid;
   border-color: #d9c3ff #50485e #514862 #d9c3ff;
@@ -164,88 +257,27 @@ body {
 
 .content-window .win98__body {
   padding: 14px;
-  max-height: var(--blog-body-height);
+  max-height: var(--body-h);
 }
 
-/* 글 보기 버튼 */
-.view-more-container {
+
+/* 빈 목록 안내와 드래그 상태 */
+.gallery-empty {
+  grid-column: 1 / -1;
   text-align: center;
-}
-
-.btn-view {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: .5em;
-  min-width: 30px;
-  padding: 9px 18px;
-  font-size: .8rem;
-  background: #d9c3ff;
-  color: #000;
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  border: 4px solid;
-  border-color: #eee9fb #7b67c8 #8571d5 #ecdaf9;
-  transform: translate(0,0);
-  transition: background-color .25s ease, transform .15s ease, box-shadow .25s ease, color .25s ease;
-}
-
-.btn-view::after {
-  content: "→";
-  transition: transform .2s ease;
-}
-
-.btn-view:hover {
-  filter: brightness(.95);
-}
-
-.btn-view:hover::after {
-  transform: translateX(3px);
-}
-
-.btn-view:active {
-  transform: translate(0,0);
-  border-color: #8571d5 #ebd0fe #c1acf2 #7b67c8;
-}
-
-.btn-view:focus-visible {
-  outline: 3px dashed #7c3aed;
-  outline-offset: 3px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .btn-view {
-    animation: none;
-    transition: none;
-  }
-
-  .btn-view::after {
-    transition: none;
-  }
-
-}
-
-
-/* 포스트 콘텐츠: 긴 제목도 창 안에서 줄바꿈합니다. */
-.post-title {
-  margin: 1em 0;
-  font-size: inherit;
-  font-weight: normal;
-  overflow-wrap: anywhere;
-}
-
-.post-empty {
   padding: 24px;
-  text-align: center;
 }
 
-#retroBar {
-  cursor: grab;
-}
 
 body.is-dragging,
 body.is-dragging #retroBar {
   cursor: grabbing;
   user-select: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item img,
+  .menu-list a {
+    transition: none;
+  }
 }
